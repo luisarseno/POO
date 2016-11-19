@@ -52,9 +52,11 @@ public class Antena {
 			throw new FilaCheiaException("A fila está cheia");
 		}
 		if(mensagem.getStatus().equals(StatusMensagem.CELULAR)){
-			mensagem.setStatus(StatusMensagem.ANTENA_CENTRAL);
-		} else if (mensagem.getStatus().equals(StatusMensagem.CENTRAL_ANTENA)){
-			mensagem.setStatus(StatusMensagem.ANTENA_CELULAR);
+            //mensagem vindo do celular para a antena,tem que ir para central
+			mensagem.setStatus(StatusMensagem.ANTENA_PARA_CENTRAL);
+		} else if (mensagem.getStatus().equals(StatusMensagem.CENTRAL_PARA_ANTENA)){
+            //mensagem vindo da central para a antena, tem que ir para o celular
+			mensagem.setStatus(StatusMensagem.ANTENA_PARA_CELULAR);
 		} else {
 			//status invalido da mensagem
 			throw new StatusInvalidoException("Mensagem com status inválido");
@@ -68,12 +70,14 @@ public class Antena {
 			throw new FilaVaziaException("A fila está vazia");
 		}
 		Mensagem msgTmp = this.filaDeMensagens.remove();
-		if(msgTmp.getStatus().equals(StatusMensagem.CENTRAL_ANTENA)){
+		if(msgTmp.getStatus().equals(StatusMensagem.ANTENA_PARA_CELULAR)){
+            //se a mensagem vai pro celular e com sucesso
 			msgTmp.setStatus(StatusMensagem.CELULAR);
 			this.qntdMsgSucesso++;
 			return msgTmp;
-		} else if(msgTmp.getStatus().equals(StatusMensagem.ANTENA_CENTRAL)){
-			msgTmp.setStatus(StatusMensagem.CENTRAL_ANTENA);
+		} else if(msgTmp.getStatus().equals(StatusMensagem.ANTENA_PARA_CENTRAL)){
+            //mensagem está indo para a central
+			msgTmp.setStatus(StatusMensagem.CENTRAL_PARA_ANTENA);
 			return msgTmp;
 		} else {
 			//nao pode entrar aqui

@@ -58,7 +58,7 @@ public class Central {
         //em qual antena preciso enfileirar:
         Antena antenaTmp = msgTmp.getTelDestino().getAntenaAssociada();
         try{
-            msgTmp.setStatus(StatusMensagem.ANTENA_CELULAR);
+            msgTmp.setStatus(StatusMensagem.CENTRAL_PARA_ANTENA);
             antenaTmp.enfileiraMensagem(msgTmp);
             return true;
         } catch (FilaCheiaException | StatusInvalidoException e){
@@ -67,6 +67,5 @@ public class Central {
         }
         return false;
     }
-	
-	
+
 }
