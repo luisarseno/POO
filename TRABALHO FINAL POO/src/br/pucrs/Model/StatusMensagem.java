@@ -1,4 +1,4 @@
-package br.pucrs.Models;
+package br.pucrs.Model;
 
 /**
  * Created by Santana on 11/19/2016.

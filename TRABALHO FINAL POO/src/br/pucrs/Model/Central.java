@@ -1,4 +1,4 @@
-package br.pucrs.Models;
+package br.pucrs.Model;
 
 import br.pucrs.Exceptions.FilaCheiaException;
 import br.pucrs.Exceptions.SemProcessosException;

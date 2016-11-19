@@ -1,4 +1,4 @@
-package br.pucrs.Models;
+package br.pucrs.Model;
 
 public class Exeperimento {
 	private String nome;

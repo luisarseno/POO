@@ -1,10 +1,12 @@
-package br.pucrs.Models;
+package br.pucrs.Model;
 
 import br.pucrs.Exceptions.FilaCheiaException;
 import br.pucrs.Exceptions.FilaVaziaException;
 import br.pucrs.Exceptions.StatusInvalidoException;
 
+import java.util.LinkedList;
 import java.util.Queue;
+
 
 public class Antena {
 	private String ident;
@@ -20,6 +22,7 @@ public class Antena {
 		this.intervalo = intervalo;
 		this.qntdMsgFalhas = 0;
 		this.qntdMsgSucesso = 0;
+        this.filaDeMensagens = new LinkedList<Mensagem>();
 	}
 
 	public String getIdent() {
@@ -93,5 +96,7 @@ public class Antena {
 		return txt;
 	}
 	**/
+
+
 
 }
