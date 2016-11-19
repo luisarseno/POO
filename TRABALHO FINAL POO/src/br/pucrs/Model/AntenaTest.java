@@ -14,10 +14,11 @@ public class AntenaTest {
         Antena antena = new Antena("A1", 2 ,new Intervalo(1,1));
         Mensagem msg = new Mensagem("teste", StatusMensagem.CELULAR, new Telefone("c1",antena ),new Telefone("c2",antena ) );
         try{
-            antena.enfileiraMensagem(msg);
-            antena.enfileiraMensagem(msg);
-            antena.enfileiraMensagem(msg);
-
+            if(antena.enfileiraMensagem(msg)) System.out.println("Enfileirado");;
+            msg.setStatus(StatusMensagem.CELULAR);
+            if(antena.enfileiraMensagem(msg)) System.out.println("Enfileirado");;
+            msg.setStatus(StatusMensagem.CELULAR);
+            if(antena.enfileiraMensagem(msg)) System.out.println("Enfileirado");;
         }catch (FilaCheiaException|StatusInvalidoException e){
             System.out.println(e.getMessage());
         }

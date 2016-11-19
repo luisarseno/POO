@@ -50,7 +50,7 @@ public class Antena {
 	}
 
 	public boolean enfileiraMensagem(Mensagem mensagem) throws FilaCheiaException,StatusInvalidoException {
-		if(this.filaDeMensagens.size() > this.capacidadeDaFila){
+		if(this.filaDeMensagens.size() >= this.capacidadeDaFila){
 			this.qntdMsgFalhas++;
 			throw new FilaCheiaException("A fila está cheia");
 		}
