@@ -52,7 +52,7 @@ public class Antena {
 	public boolean enfileiraMensagem(Mensagem mensagem) throws FilaCheiaException,StatusInvalidoException {
 		if(this.filaDeMensagens.size() >= this.capacidadeDaFila){
 			this.qntdMsgFalhas++;
-			throw new FilaCheiaException("A fila está cheia");
+			throw new FilaCheiaException("A fila est? cheia");
 		}
 		if(mensagem.getStatus().equals(StatusMensagem.CELULAR)){
             //mensagem vindo do celular para a antena,tem que ir para central
@@ -62,7 +62,7 @@ public class Antena {
 			mensagem.setStatus(StatusMensagem.ANTENA_PARA_CELULAR);
 		} else {
 			//status invalido da mensagem
-			throw new StatusInvalidoException("Mensagem com status inválido");
+			throw new StatusInvalidoException("Mensagem com status inv?lido");
 		}
 		this.filaDeMensagens.add(mensagem);
 		return true;
@@ -70,7 +70,7 @@ public class Antena {
 
 	public Mensagem desenfileirarMensagem() throws FilaVaziaException, StatusInvalidoException{
 		if(this.filaDeMensagens.size() == 0 ){
-			throw new FilaVaziaException("A fila está vazia");
+			throw new FilaVaziaException("A fila est? vazia");
 		}
 		Mensagem msgTmp = this.filaDeMensagens.remove();
 		if(msgTmp.getStatus().equals(StatusMensagem.ANTENA_PARA_CELULAR)){
@@ -79,23 +79,23 @@ public class Antena {
 			this.qntdMsgSucesso++;
 			return msgTmp;
 		} else if(msgTmp.getStatus().equals(StatusMensagem.ANTENA_PARA_CENTRAL)){
-            //mensagem está indo para a central
+            //mensagem est? indo para a central
 			msgTmp.setStatus(StatusMensagem.CENTRAL_PARA_ANTENA);
 			return msgTmp;
 		} else {
 			//nao pode entrar aqui
-			throw new StatusInvalidoException("Mensagem com status inválido");
+			throw new StatusInvalidoException("Mensagem com status inv?lido");
 		}
 	}
 
 
-	/**Somente para testar os bgl
+
 	public String toString() {
 		String txt = "";
-		txt = ident + "\n" + capacidadeDaFila + "\n" + intervalo;
+		txt = "Identificação: "+ident + "\n Capaciadade: " + capacidadeDaFila + "\n" + intervalo;
 		return txt;
 	}
-	**/
+
 
 
 

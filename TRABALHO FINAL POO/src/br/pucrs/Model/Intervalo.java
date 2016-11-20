@@ -17,11 +17,11 @@ public class Intervalo {
 	}
 	
 	
-	/**Somente para testar os bgl
+
 	@Override
 	public String toString() {
-		return tempo1 + "-"+ tempo2;
+		return "Intervalo: ["+tempo1 + "-"+ tempo2+"]";
 	}
-	**/
+
 	
 }

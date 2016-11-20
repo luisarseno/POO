@@ -24,5 +24,12 @@ public class Telefone {
 	public void setAntenaAssociada(Antena antena) {
 		this.antenaAssociada = antena;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Telefone{" +
+				"ident='" + ident + '\'' +
+				", antenaAssociada=" + antenaAssociada +
+				'}';
+	}
 }

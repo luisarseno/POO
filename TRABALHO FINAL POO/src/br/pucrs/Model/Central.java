@@ -68,4 +68,14 @@ public class Central {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "Central{" +
+                "ident='" + ident + '\'' +
+                ", quantDeProcessadores=" + quantDeProcessadores +
+                ", tempoPorAtendDosPrecessos=" + tempoPorAtendDosPrecessos +
+                ", pilhaProcessos=" + pilhaProcessos +
+                ", celulares=" + celulares +
+                '}';
+    }
 }

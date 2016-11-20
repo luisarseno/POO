@@ -25,6 +25,12 @@ public class Eventos {
 	public void setIdentDestino(String identDestino) {
 		IdentDestino = identDestino;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Eventos{" +
+				"IdentOrigem='" + IdentOrigem + '\'' +
+				", IdentDestino='" + IdentDestino + '\'' +
+				'}';
+	}
 }
