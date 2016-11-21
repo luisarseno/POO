@@ -18,18 +18,20 @@ import java.util.Scanner;
 public class LeitorSimulacao {
     private String nomeExperimento;
     private int numEventos;
-    private ArrayList<Eventos> arrayEventos;
+    private ArrayList<Mensagem> arrayMensagem;
+    private ArrayList<Telefone> arrayTelefone;
 
-    public LeitorSimulacao() {
-        this.arrayEventos = new ArrayList<Eventos>();
+    public LeitorSimulacao(ArrayList telefones) {
+        this.arrayMensagem = new ArrayList<Mensagem>();
+        this.arrayTelefone = telefones;
     }
 
     public String getNomeExperimento() {
         return nomeExperimento;
     }
 
-    public ArrayList<Eventos> getArrayEventos() {
-        return arrayEventos;
+    public ArrayList<Mensagem> getArrayMensagem() {
+        return arrayMensagem;
     }
 
     public void lerArquivo(File arquivo) throws LeitorException {
@@ -37,6 +39,10 @@ public class LeitorSimulacao {
         try (BufferedReader br = Files.newBufferedReader(path, Charset.defaultCharset())) {
             String linha = null;
             Scanner sc;
+            String identOrigem = null;
+            String identDestino = null;
+            Telefone telOrigem = null;
+            Telefone telDestino = null;
             while ((linha = br.readLine()) != null) {
                 if (linha.contains("Experimento")) {
                     this.nomeExperimento = linha.substring(linha.lastIndexOf(":") + 1, linha.length());
@@ -47,8 +53,26 @@ public class LeitorSimulacao {
                         if(linha == null){
                             throw new LeitorException("Eventos insuficientes");
                         }
+                        telOrigem = null;
+                        telDestino = null;
                         sc = new Scanner(linha).useDelimiter(";");
-                        this.arrayEventos.add(new Eventos(sc.next().trim(), sc.next().trim()));
+                        identOrigem = sc.next().trim();
+                        identDestino = sc.next().trim();
+                        for (Telefone t: this.arrayTelefone ) {
+                            if(t.getIdent().equals(identOrigem)){
+                                telOrigem = t;
+                            }
+                            if(t.getIdent().equals(identDestino)){
+                                telDestino = t;
+                            }
+                        }
+                        if(telDestino == null || telOrigem == null){
+                            throw new LeitorException("Telefones inexistentes no sistema!\n");
+                        }
+                        if(telDestino == telOrigem){
+                            throw new LeitorException("Telefones são iguais!\n");
+                        }
+                        this.arrayMensagem.add(new Mensagem(i+1, StatusMensagem.CELULAR_ORIGEM, telOrigem, telDestino));
                     }
                 }
             }

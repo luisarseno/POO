@@ -41,8 +41,8 @@ public class Central {
 		this.tempoPorAtendDosPrecessos = tempoPorAtendDosPrecessos;
 	}
 
-	public void addTelefone(Telefone telefone){
-        this.celulares.add(telefone);
+    public void setCelulares(ArrayList<Telefone> celulares) {
+        this.celulares = celulares;
     }
 
     public boolean empilhaProcesso(Mensagem mensagem){

@@ -6,22 +6,22 @@ package br.pucrs.Model;
 public class Mensagem {
     private Telefone telOrigem;
     private Telefone telDestino;
-    private String texto;
+    private int numeroMensagem;
     private StatusMensagem status;
 
-    public Mensagem(String texto, StatusMensagem status, Telefone origem, Telefone destino) {
-        this.texto = texto;
+    public Mensagem(int numeroMensagem, StatusMensagem status, Telefone origem, Telefone destino) {
+        this.numeroMensagem = numeroMensagem;
         this.status = status;
         this.telOrigem = origem;
         this.telDestino = destino;
     }
 
-    public String getTexto() {
-        return texto;
+    public int getNumeroMensagem() {
+        return numeroMensagem;
     }
 
-    public void setTexto(String texto) {
-        this.texto = texto;
+    public void setNumeroMensagem(int numeroMensagem) {
+        this.numeroMensagem = numeroMensagem;
     }
 
     public StatusMensagem getStatus() {
@@ -38,5 +38,15 @@ public class Mensagem {
 
     public Telefone getTelDestino() {
         return telDestino;
+    }
+
+    @Override
+    public String toString() {
+        return "Mensagem{" +
+                "telOrigem=" + telOrigem +
+                ", telDestino=" + telDestino +
+                ", texto='" + numeroMensagem + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

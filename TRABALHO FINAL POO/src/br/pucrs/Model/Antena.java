@@ -54,7 +54,7 @@ public class Antena {
 			this.qntdMsgFalhas++;
 			throw new FilaCheiaException("A fila est? cheia");
 		}
-		if(mensagem.getStatus().equals(StatusMensagem.CELULAR)){
+		if(mensagem.getStatus().equals(StatusMensagem.CELULAR_ORIGEM)){
             //mensagem vindo do celular para a antena,tem que ir para central
 			mensagem.setStatus(StatusMensagem.ANTENA_PARA_CENTRAL);
 		} else if (mensagem.getStatus().equals(StatusMensagem.CENTRAL_PARA_ANTENA)){
@@ -75,7 +75,7 @@ public class Antena {
 		Mensagem msgTmp = this.filaDeMensagens.remove();
 		if(msgTmp.getStatus().equals(StatusMensagem.ANTENA_PARA_CELULAR)){
             //se a mensagem vai pro celular e com sucesso
-			msgTmp.setStatus(StatusMensagem.CELULAR);
+			msgTmp.setStatus(StatusMensagem.CELULAR_DESTINO);
 			this.qntdMsgSucesso++;
 			return msgTmp;
 		} else if(msgTmp.getStatus().equals(StatusMensagem.ANTENA_PARA_CENTRAL)){
@@ -92,7 +92,7 @@ public class Antena {
 
 	public String toString() {
 		String txt = "";
-		txt = "Identificação: "+ident + "\n Capaciadade: " + capacidadeDaFila + "\n" + intervalo;
+		txt = "Identificaï¿½ï¿½o: "+ident + "\n Capaciadade: " + capacidadeDaFila + "\n" + intervalo;
 		return txt;
 	}
 

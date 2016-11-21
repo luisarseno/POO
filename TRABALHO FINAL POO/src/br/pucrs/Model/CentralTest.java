@@ -2,8 +2,6 @@ package br.pucrs.Model;
 
 import static org.junit.Assert.*;
 
-import org.junit.Test;
-
 import br.pucrs.Exceptions.FilaCheiaException;
 import br.pucrs.Exceptions.StatusInvalidoException;
 
@@ -16,11 +14,11 @@ public class CentralTest {
     	Antena antena = new Antena("A1", 4 ,new Intervalo(1,1));
         Mensagem msg1 = new Mensagem("teste", StatusMensagem.CENTRAL_PARA_ANTENA, new Telefone("c1",antena ),new Telefone("c2",antena ) );
         Mensagem msg2 = new Mensagem("teste", StatusMensagem.ANTENA_PARA_CENTRAL, new Telefone("c1",antena ),new Telefone("c2",antena ) );
-        Mensagem msg3 = new Mensagem("teste", StatusMensagem.CELULAR, new Telefone("c1",antena ),new Telefone("c2",antena ) );
+        Mensagem msg3 = new Mensagem("teste", StatusMensagem.CELULAR_ORIGEM, new Telefone("c1",antena ),new Telefone("c2",antena ) );
        
         
         /**
-        Ocorreu um erro, o método desempilharProcesso deveria alterar o status da mensagem
+        Ocorreu um erro, o mï¿½todo desempilharProcesso deveria alterar o status da mensagem
         para "CENTRAL_PARA_ANTENA", entretanto ele esta alterando para "ANTENA_PARA_CELULAR".
         **/
         

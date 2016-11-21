@@ -8,23 +8,24 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
+
+import java.io.File;
 
 public class Layout extends Application{
 	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("JavaFX - Leitura de Arquivos Trabalho final");
-		
-		GridPane grid = new GridPane();
+        final FileChooser fileChooser = new FileChooser();
+        GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
         grid.setVgap(10);
@@ -36,11 +37,11 @@ public class Layout extends Application{
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 55));
         grid.add(scenetitle, 2, 0, 2, 1);
         
-        Label ArqCodigos = new Label("Arquivo de codigos.zip:");
+        Label ArqCodigos = new Label("Arquivo de execução:");
         grid.add(ArqCodigos, 2, 1);
         
-        TextField userTextField = new TextField();
-        grid.add(userTextField, 2, 2, 2, 1);
+        TextField textFileExecucao = new TextField();
+        grid.add(textFileExecucao, 2, 2, 2, 1);
         
         Button btn = new Button("Procurar");
         HBox hbBtn = new HBox(10);
@@ -52,8 +53,8 @@ public class Layout extends Application{
         Label ArqSimulacao = new Label("Arquivo de simulaçao:");
         grid.add(ArqSimulacao, 2, 3);
         
-        TextField userTextField1 = new TextField();
-        grid.add(userTextField1, 2, 4, 2, 1);
+        TextField textFileSimulacao = new TextField();
+        grid.add(textFileSimulacao, 2, 4, 2, 1);
         
         Button btn2 = new Button("Procurar");
         HBox hbBtn2 = new HBox(10);
@@ -61,10 +62,10 @@ public class Layout extends Application{
         hbBtn2.getChildren().add(btn2);
         grid.add(hbBtn2, 4, 4);
         
-        Button btn3 = new Button("Confirmar");
+        Button confirmar = new Button("Confirmar");
         HBox hbBtn3 = new HBox(10);
         hbBtn3.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn3.getChildren().add(btn3);
+        hbBtn3.getChildren().add(confirmar);
         grid.add(hbBtn3, 4, 6);
         
         Label mensagem = new Label("Resultados:");
@@ -73,6 +74,41 @@ public class Layout extends Application{
         TextArea txtA = new TextArea();
         grid.add(txtA, 0, 9, 14 ,55);
 
+        btn.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(final ActionEvent e) {
+                        File file = fileChooser.showOpenDialog(primaryStage);
+                        if(file.exists()){
+                            textFileExecucao.setText(file.getAbsolutePath());
+
+                        }
+                    }
+                });
+        btn2.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(final ActionEvent e) {
+                        File file  = fileChooser.showOpenDialog(primaryStage);
+                        if(file.exists()){
+                            textFileSimulacao.setText(file.getAbsolutePath());
+
+                        }
+                    }
+                });
+
+        confirmar.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(final ActionEvent e) {
+                        File fileExecucao = new File(textFileExecucao.getText());
+                        File fileSimulacao = new File(textFileSimulacao.getText());
+                        Experimento experimento = new Experimento(fileExecucao, fileSimulacao);
+                        txtA.clear();
+                        txtA.appendText(experimento.lerArquivoExecucao());
+                        txtA.appendText("\n\n\n"+experimento.lerArquivoSimulacao());
+                    }
+                });
         
         Scene scene = new Scene(grid);
         primaryStage.setScene(scene);

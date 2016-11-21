@@ -13,10 +13,10 @@ public class AntenaTest {
     public void testEnfileiraMensagem() throws Exception {
     	System.out.println("TestEnfileirarMensagem\n");
     	Antena antena = new Antena("A1", 4 ,new Intervalo(1,1));
-        Mensagem msg1 = new Mensagem("teste", StatusMensagem.CELULAR, new Telefone("c1",antena ),new Telefone("c2",antena ) );
-        Mensagem msg2 = new Mensagem("teste", StatusMensagem.CENTRAL_PARA_ANTENA, new Telefone("c1",antena ),new Telefone("c2",antena ) );
-        Mensagem msg3 = new Mensagem("teste", StatusMensagem.ANTENA_PARA_CELULAR, new Telefone("c1",antena ),new Telefone("c2",antena ) );
-        Mensagem msg4 = new Mensagem("teste", StatusMensagem.CELULAR, new Telefone("c1",antena ),new Telefone("c2",antena ) );
+        Mensagem msg1 = new Mensagem(1, StatusMensagem.CELULAR_ORIGEM, new Telefone("c1",antena ),new Telefone("c2",antena ) );
+        Mensagem msg2 = new Mensagem(2, StatusMensagem.CENTRAL_PARA_ANTENA, new Telefone("c1",antena ),new Telefone("c2",antena ) );
+        Mensagem msg3 = new Mensagem(3, StatusMensagem.ANTENA_PARA_CELULAR, new Telefone("c1",antena ),new Telefone("c2",antena ) );
+        Mensagem msg4 = new Mensagem(4, StatusMensagem.CELULAR_ORIGEM, new Telefone("c1",antena ),new Telefone("c2",antena ) );
         
         try{
         	//Mensagem passa
@@ -29,13 +29,13 @@ public class AntenaTest {
             assertEquals(true, antena.enfileiraMensagem(msg2));
             System.out.println("Status Atual: " + msg2.getStatus());
             
-            //Mensagem passa, mas o sistema envia uma mensagem de Status Inválido
+            //Mensagem passa, mas o sistema envia uma mensagem de Status Invï¿½lido
             System.out.println("\nMsg3 de status: " + msg3.getStatus() + " - Enfilerada.");
         	assertEquals(true, antena.enfileiraMensagem(msg3));
         	System.out.println("Status Atual: " + msg3.getStatus());
         	
         	//Mensagem falha (da false) pois a capacidade da fila chaga ao limite.
-        	msg4.setStatus(StatusMensagem.CELULAR);
+        	msg4.setStatus(StatusMensagem.CELULAR_ORIGEM);
         	assertEquals(false, antena.enfileiraMensagem(msg4));
         	
         }catch (FilaCheiaException|StatusInvalidoException e){
@@ -47,10 +47,10 @@ public class AntenaTest {
     public void TestDesenfileirarMensagem() throws Exception {
     		System.out.println("\n\nTestDesenfileirarMensagem\n");
     		Antena antena = new Antena("A1", 4 ,new Intervalo(1,1));
-    		Mensagem msg1 = new Mensagem("teste", StatusMensagem.CELULAR, new Telefone("c1",antena ),new Telefone("c2",antena ) );
-    		Mensagem msg2 = new Mensagem("teste", StatusMensagem.CENTRAL_PARA_ANTENA, new Telefone("c1",antena ),new Telefone("c2",antena ) );
-    		Mensagem msg3 = new Mensagem("teste", StatusMensagem.CENTRAL_PARA_ANTENA, new Telefone("c1",antena ),new Telefone("c2",antena ) );
-    		Mensagem msg4 = new Mensagem("teste", StatusMensagem.CELULAR, new Telefone("c1",antena ),new Telefone("c2",antena ) );
+    		Mensagem msg1 = new Mensagem(1, StatusMensagem.CELULAR_ORIGEM, new Telefone("c1",antena ),new Telefone("c2",antena ) );
+    		Mensagem msg2 = new Mensagem(2, StatusMensagem.CENTRAL_PARA_ANTENA, new Telefone("c1",antena ),new Telefone("c2",antena ) );
+    		Mensagem msg3 = new Mensagem(3, StatusMensagem.CENTRAL_PARA_ANTENA, new Telefone("c1",antena ),new Telefone("c2",antena ) );
+    		Mensagem msg4 = new Mensagem(4, StatusMensagem.CELULAR_ORIGEM, new Telefone("c1",antena ),new Telefone("c2",antena ) );
            
     		try{
     			//C1-A1-CENTRAL-A1
