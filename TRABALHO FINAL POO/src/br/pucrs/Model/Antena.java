@@ -52,7 +52,7 @@ public class Antena {
 	public boolean enfileiraMensagem(Mensagem mensagem) throws FilaCheiaException,StatusInvalidoException {
 		if(this.filaDeMensagens.size() >= this.capacidadeDaFila){
 			this.qntdMsgFalhas++;
-			throw new FilaCheiaException("A fila est? cheia");
+			throw new FilaCheiaException("A fila está cheia");
 		}
 		if(mensagem.getStatus().equals(StatusMensagem.CELULAR_ORIGEM)){
             //mensagem vindo do celular para a antena,tem que ir para central
@@ -62,7 +62,7 @@ public class Antena {
 			mensagem.setStatus(StatusMensagem.ANTENA_PARA_CELULAR);
 		} else {
 			//status invalido da mensagem
-			throw new StatusInvalidoException("Mensagem com status inv?lido");
+			throw new StatusInvalidoException("Mensagem com status inválido");
 		}
 		this.filaDeMensagens.add(mensagem);
 		return true;
@@ -83,7 +83,7 @@ public class Antena {
 			return msgTmp;
 		} else {
 			//nao pode entrar aqui
-			throw new StatusInvalidoException("Mensagem com status inv?lido");
+			throw new StatusInvalidoException("Mensagem com status inválido");
 		}
 	}
 

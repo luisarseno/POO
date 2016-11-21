@@ -87,12 +87,12 @@ public class LeitorExecucao {
                             }
                         }
                         if (auxAntena == null) {
-                            throw new LeitorException("Antena: " + antena + " n√£o existe, vefique o arquivo");
+                            throw new LeitorException("Antena: " + antena + " n„o existe, vefique o arquivo");
                         }
                         this.arrayTelefone.add(new Telefone(nome, auxAntena));
                     }
                 } else {
-                    throw new LeitorException("Arquivo inv√°lido para o sistema");
+                    throw new LeitorException("Arquivo inv„lido para o sistema");
                 }
             }
         } catch (IOException e) {

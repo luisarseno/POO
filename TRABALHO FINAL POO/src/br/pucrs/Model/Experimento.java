@@ -120,6 +120,7 @@ public class Experimento {
 
         //dados da simulação
         texto += "\n\nDados da simulação \n\n";
+        texto += "Total Eventos: "+leitorSimulacao.getNumEventos()+"\n\n";
         for ( Antena a : this.arrayAntenas) {
             texto += "Antena: "+a.getIdent()+"\n\nMensagens Sucesso: "+a.getQntdMsgSucesso()+"\nMensagens Falhas: "+a.getQntdMsgFalhas()+"\n\n";
         }

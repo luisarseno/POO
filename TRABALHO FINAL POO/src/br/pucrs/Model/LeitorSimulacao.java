@@ -80,4 +80,8 @@ public class LeitorSimulacao {
             System.err.format("Erro de E/S: %s%n", e);
         }
     }
+
+    public int getNumEventos() {
+        return numEventos;
+    }
 }

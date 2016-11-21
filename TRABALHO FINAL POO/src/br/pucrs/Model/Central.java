@@ -52,7 +52,7 @@ public class Central {
 
     public Mensagem desempilhaProcesso() throws SemProcessosException{
         if(this.pilhaProcessos.empty()){
-            throw new SemProcessosException("A central n√£o tem nenhum processo!");
+            throw new SemProcessosException("A central n„o tem nenhum processo!");
         }
         Mensagem msgTmp = this.pilhaProcessos.pop();
         //em qual antena preciso enfileirar:
