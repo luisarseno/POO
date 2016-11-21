@@ -107,6 +107,8 @@ public class Layout extends Application{
                         txtA.clear();
                         txtA.appendText(experimento.lerArquivoExecucao());
                         txtA.appendText("\n\n\n"+experimento.lerArquivoSimulacao());
+                        txtA.appendText("\n\n\n"+experimento.fazSimulacao());
+
                     }
                 });
         

@@ -80,7 +80,6 @@ public class Antena {
 			return msgTmp;
 		} else if(msgTmp.getStatus().equals(StatusMensagem.ANTENA_PARA_CENTRAL)){
             //mensagem est? indo para a central
-			msgTmp.setStatus(StatusMensagem.CENTRAL_PARA_ANTENA);
 			return msgTmp;
 		} else {
 			//nao pode entrar aqui

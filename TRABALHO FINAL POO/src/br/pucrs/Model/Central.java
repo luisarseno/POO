@@ -50,7 +50,7 @@ public class Central {
         return true;
     }
 
-    public boolean desempilhaProcesso() throws SemProcessosException{
+    public Mensagem desempilhaProcesso() throws SemProcessosException{
         if(this.pilhaProcessos.empty()){
             throw new SemProcessosException("A central não tem nenhum processo!");
         }
@@ -60,12 +60,12 @@ public class Central {
         try{
             msgTmp.setStatus(StatusMensagem.CENTRAL_PARA_ANTENA);
             antenaTmp.enfileiraMensagem(msgTmp);
-            return true;
+            return msgTmp;
         } catch (FilaCheiaException | StatusInvalidoException e){
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        return false;
+        return msgTmp;
     }
 
     @Override

@@ -76,35 +76,52 @@ public class Experimento {
 	}
 
     public String fazSimulacao(){
-        String texto = "";
+        Mensagem mensagem;
+        String texto = "Iniciando \n";
         for (int i = 0; i < tempoSimulacao ; i++) {
-            for ( Mensagem msgAtual: this.arrayMensagens ) {
-                Antena antenaOrigem = msgAtual.getTelOrigem().getAntenaAssociada();
-                Antena antenaDestino = msgAtual.getTelDestino().getAntenaAssociada();
-                if(msgAtual.getStatus().equals("CELULAR_ORIGEM")){
-                    try {
-                        antenaOrigem.enfileiraMensagem(msgAtual);
-                        texto += "Mensagem: "+msgAtual.getNumeroMensagem()+" => antena: "+antenaOrigem.getIdent()+" -> enfileirando mensagem: De("+msgAtual.getTelOrigem().getIdent()+"), Para ("+msgAtual.getTelDestino().getIdent()+")";
-                    } catch (FilaCheiaException |StatusInvalidoException e){
-                        texto += e.getMessage();
+            if(this.arrayMensagens.size() > 0){
+                for ( Mensagem msgAtual: this.arrayMensagens ) {
+                    Antena antenaOrigem = msgAtual.getTelOrigem().getAntenaAssociada();
+                    if(msgAtual.getStatus().equals(StatusMensagem.CELULAR_ORIGEM)) {
+                        try {
+                            antenaOrigem.enfileiraMensagem(msgAtual);
+                            this.arrayMensagens.remove(msgAtual);
+                            texto += "Mensagem: " + msgAtual.getNumeroMensagem() + " => antena: " + antenaOrigem.getIdent() + " -> enfileirando mensagem: De(" + msgAtual.getTelOrigem().getIdent() + "), Para (" + msgAtual.getTelDestino().getIdent() + ")\n";
+                            break;
+                        } catch (FilaCheiaException | StatusInvalidoException e) {
+                            this.arrayMensagens.remove(msgAtual);
+                            texto += e.getMessage() + "\n";
+                            break;
+                        }
                     }
-                } else if(msgAtual.getStatus().equals("ANTENA_PARA_CENTRAL")){
-                    this.central.empilhaProcesso(msgAtual);
-                    texto += "Mensagem: "+msgAtual.getNumeroMensagem()+" => central: "+this.central.getIdent()+" -> empilhando mensagem: De("+msgAtual.getTelOrigem().getIdent()+"), Para ("+msgAtual.getTelDestino().getIdent()+")";
-                } else if (msgAtual.getStatus().equals("CENTRAL_PARA_ANTENA")){
-                    try {
-                        this.central.desempilhaProcesso();
-                        texto += "Mensagem: "+msgAtual.getNumeroMensagem()+" => central: "+this.central.getIdent()+" -> desempilhando mensagem: De("+msgAtual.getTelOrigem().getIdent()+"), Para ("+msgAtual.getTelDestino().getIdent()+")";
-                    } catch (SemProcessosException e ){
-                        texto += e.getMessage();
-                    }
-                } else if(msgAtual.getStatus().equals("ANTENA_PARA_CELULAR")){
-
-
-                } else if (msgAtual.getStatus().equals("CELULAR_DESTINO")){
-
                 }
             }
+            for ( Antena a : this.arrayAntenas){
+                try{
+                    mensagem = a.desenfileirarMensagem();
+                    if(mensagem.getStatus().equals(StatusMensagem.ANTENA_PARA_CENTRAL)){
+                        texto += "Mensagem: "+mensagem.getNumeroMensagem()+" => antena: "+a.getIdent()+" -> desenfileirando mensagem: De("+mensagem.getTelOrigem().getIdent()+"), Para ("+mensagem.getTelDestino().getIdent()+")\n";
+                        this.central.empilhaProcesso(mensagem);
+                        texto += "Mensagem: "+mensagem.getNumeroMensagem()+" => antena: "+a.getIdent()+" -> empilhando mensagem: De("+mensagem.getTelOrigem().getIdent()+"), Para ("+mensagem.getTelDestino().getIdent()+")\n";
+                    } else if(mensagem.getStatus().equals(StatusMensagem.CELULAR_DESTINO)){
+                        texto += "Mensagem: "+mensagem.getNumeroMensagem()+" => antena: "+ a.getIdent() +" -> entregue com sucesso: De("+mensagem.getTelOrigem().getIdent()+"), Para ("+mensagem.getTelDestino().getIdent()+")\n";
+                    }
+                } catch (FilaVaziaException| StatusInvalidoException e){
+                    texto += e.getMessage() + "\n";
+                }
+            }
+            try{
+                mensagem = this.central.desempilhaProcesso();
+                texto += "Mensagem: "+mensagem.getNumeroMensagem()+" => indo pra antena destino: "+mensagem.getTelDestino().getAntenaAssociada().getIdent()+" -> desempilhando mensagem: De("+mensagem.getTelOrigem().getIdent()+"), Para ("+mensagem.getTelDestino().getIdent()+")\n";
+            } catch (SemProcessosException e){
+                texto += e.getMessage() + "\n";
+            }
+        }
+
+        //dados da simulação
+        texto += "\n\nDados da simulação \n\n";
+        for ( Antena a : this.arrayAntenas) {
+            texto += "Antena: "+a.getIdent()+"\n\nMensagens Sucesso: "+a.getQntdMsgSucesso()+"\nMensagens Falhas: "+a.getQntdMsgFalhas()+"\n\n";
         }
         return texto;
     }

@@ -1,9 +1,9 @@
 package br.pucrs.Model;
 
-import static org.junit.Assert.*;
-
 import br.pucrs.Exceptions.FilaCheiaException;
 import br.pucrs.Exceptions.StatusInvalidoException;
+
+import static org.junit.Assert.assertEquals;
 
 public class CentralTest {
 
@@ -12,9 +12,9 @@ public class CentralTest {
     	System.out.println("TestDesempilhaProcesso\n");
     	Central central = new Central("Central", 10, new Intervalo(1,1));
     	Antena antena = new Antena("A1", 4 ,new Intervalo(1,1));
-        Mensagem msg1 = new Mensagem("teste", StatusMensagem.CENTRAL_PARA_ANTENA, new Telefone("c1",antena ),new Telefone("c2",antena ) );
-        Mensagem msg2 = new Mensagem("teste", StatusMensagem.ANTENA_PARA_CENTRAL, new Telefone("c1",antena ),new Telefone("c2",antena ) );
-        Mensagem msg3 = new Mensagem("teste", StatusMensagem.CELULAR_ORIGEM, new Telefone("c1",antena ),new Telefone("c2",antena ) );
+        Mensagem msg1 = new Mensagem(1, StatusMensagem.CENTRAL_PARA_ANTENA, new Telefone("c1",antena ),new Telefone("c2",antena ) );
+        Mensagem msg2 = new Mensagem(2, StatusMensagem.ANTENA_PARA_CENTRAL, new Telefone("c1",antena ),new Telefone("c2",antena ) );
+        Mensagem msg3 = new Mensagem(3, StatusMensagem.CELULAR_ORIGEM, new Telefone("c1",antena ),new Telefone("c2",antena ) );
        
         
         /**
